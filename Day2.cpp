@@ -8,7 +8,7 @@ int main() {
     cout<<"Enter n:";
     cin>>n;
     
-    int arr[n-1];
+    long long arr[n-1];
     cout<<"Enter a "<<n-1<<" Element in array(1 to n):"<<endl;
     
     for(int i=0; i<n-1; i++) {
@@ -16,8 +16,8 @@ int main() {
     }
     
     //*** MAIN CODE ****
-    int expected_sum = (n*(n+1))/2;
-    int curr_sum = 0;
+    long long expected_sum = (n*(n+1))/2;
+    long long curr_sum = 0;
     
     for(int &val: arr) {
         curr_sum += val;
