@@ -8,7 +8,7 @@ int main() {
     cout<<"Enter a n:";
     cin>>n;
     
-    int arr[n+1];
+    long long arr[n+1];
     cout<<"Enter n+1 element from 1 to n:"<<endl;
     for(int i=0; i<=n; i++) {
         cout<<"Element "<<i<<":";
@@ -17,8 +17,8 @@ int main() {
     
     // *** MAIN CODE ***
     
-    int slow = arr[0];
-    int fast = arr[0];
+    long long slow = arr[0];
+    long long fast = arr[0];
     
     slow = arr[slow];
     fast = arr[arr[fast]];
