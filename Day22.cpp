@@ -24,9 +24,9 @@ int main() {
         mp[arr[i]]++;
     }
     
-    for(int i=0; i<n; i++) {
-        if(mp[arr[i]] == k) {
-            cout<<arr[i];
+    for(auto [a, b]: mp) {
+        if(b == k) {
+            cout<<a;
             return 0;
         }
     }
