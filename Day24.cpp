@@ -1,34 +1,80 @@
 #include <iostream>
 #include <unordered_map>
+#include <climits>
+#include <queue>
 using namespace std;
 
 class Node {
-    public:
-        int data;
-        Node *left;
-        Node *right;
-        Node(int d) {
-            data = d;
-            left = nullptr;
-            right = nullptr;
-        }
+	public:
+	long long data;
+	Node* left;
+	Node* right;
+	bool have_left;
+	bool have_right;
+	Node(int x) {
+		data = x;
+		left = nullptr;
+		right = nullptr;
+		have_left = true;
+		have_right = true;
+		
+	}
 };
 
 class Solution {
     public:
-  		void insert(unordered_map<int, Node*>& mp, int i, int data) {
-                int prev = (i-1) / 2;
-                Node* newNode = new Node(data);
-                Node *preNode = mp[prev];
-                if(i == 2*prev+1) {
-                    preNode->left = new Node(data);
-                    Node* currNode = preNode->left;
-                    mp[i] = currNode;
-                } else {
-                    preNode->right = newNode;
-                    mp[i] = newNode;
-                }
-        }
+  		
+		void traverse(Node* root) {
+		    if(root == nullptr) {
+		        cout<<"NULL";
+		        return;
+		    }
+		    
+		    cout<<root->data;
+		    
+		    cout<<" Left:";
+		    traverse(root->left);
+		    cout<<" Right:";
+		    traverse(root->right);
+		}
+		
+		    
+		void BFS(Node* root, string data) {
+		    queue<Node*> que;
+		    que.push(root);
+		    
+		    while(!que.empty()) {
+		        
+		        Node* currNode = que.front();
+		        
+		        que.pop();
+		        
+		        if(currNode->have_left && currNode->left == nullptr) {
+		            if(data == "null" || data == "NULL" || data == "nullptr") {
+		                currNode->have_left = false;
+		                return;
+		            }
+		            int val = stoi(data);
+		            Node* newNode = new Node(val);
+		            currNode->left = newNode;
+		            return;
+		        } else if(currNode->have_right && currNode->right == nullptr) {
+		            if(data == "null" || data == "NULL" || data == "nullptr") {
+		                currNode->have_right = false;
+		                return;
+		            }
+		            int val = stoi(data);
+		            Node* newNode = new Node(val);
+		            currNode->right = newNode;
+		            return;
+		        }
+		        
+		        if(currNode->left != nullptr)
+		            que.push(currNode->left);
+		        if(currNode->right != nullptr)
+		            que.push(currNode->right);
+		    }
+		}
 
 
 /*class Node {
@@ -71,24 +117,20 @@ int main() {
     Node* root = NULL;
     
     int t;
-    int data;
 
     std::cin >> t;
     
-    unordered_map<int, Node*> mp;
-    cout<<"Ele:";
+    string data;
     cin>>data;
-    root = new Node(data);
-    root->left = nullptr;
-    root->right = nullptr;
-    mp[0] = root;
-    
-    int i = 1;
-    while(i < t) {
-        std::cin >> data;
-        myTree.insert(mp, i, data);
-        i++;
+    root = new Node(stoi(data));
+    t--;
+    while(t > 0) {
+        cin>>data;
+        myTree.BFS(root, data);
+            
+        t--;
     }
+	
   	cout<<"Enter v1, v2:";
   	int v1, v2;
   	std::cin >> v1 >> v2;
